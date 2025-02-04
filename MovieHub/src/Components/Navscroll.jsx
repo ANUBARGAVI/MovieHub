@@ -1,54 +1,116 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
 
 function Navscroll({ onSearch, onClear }) {
   const [query, setQuery] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation(); // To track active link
 
   const handleSearch = () => {
-    onSearch(query);
+    if (query.trim() !== "") {
+      onSearch(query);
+    }
   };
 
   const handleClear = () => {
-    setQuery(""); 
-    onClear(); 
+    setQuery("");
+    onClear();
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSearch();
+    }
+  };
+
+  // Set active class based on URL
+  const getActiveClass = (path) => {
+    return location.pathname.includes(path) ? "text-yellow-500" : "text-black";
   };
 
   return (
-    <Navbar expand="lg" className="bg-info text-dark position-fixed w-100  top-0 z-index-10">
-      <Container fluid>
-        <Navbar.Brand as={Link} to="/">MovieHub</Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-          <Nav className="me-auto my-2 my-lg-0" navbarScroll>
-            <Nav.Link as={Link} to="/" className="nav-link-hover">Home</Nav.Link>
-            <Nav.Link as={Link} to="/movies/top" className="nav-link-hover">Top Rated</Nav.Link>
-            <Nav.Link as={Link} to="/movies/popular" className="nav-link-hover">Popular</Nav.Link>
-            <Nav.Link as={Link} to="/movies/upcoming" className="nav-link-hover">Upcoming</Nav.Link>
-            <Nav.Link as={Link} to="/movies/now" className="nav-link-hover">Currently Playing</Nav.Link>
-          </Nav>
-          <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
+    <>
+      {/* Navbar */}
+      <nav className="bg-green-100 text-white fixed top-0 w-full z-50 shadow-md">
+        <div className="container mx-auto flex items-center justify-between py-3 px-4">
+          {/* Logo */}
+          <Link to="/" className="text-2xl font-bold text-black">
+            MovieHub
+          </Link>
+
+          {/* Mobile Menu Button */}
+          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden focus:outline-none">
+            {isOpen ? (
+              <span className="text-2xl">&#10005;</span>
+            ) : (
+              <span className="text-2xl">&#9776;</span>
+            )}
+          </button>
+
+          {/* Navigation Links */}
+          <div className={`md:flex gap-6 ${isOpen ? "flex flex-col w-full items-center bg-green-200 mt-3 p-3" : "hidden md:flex"}`}>
+            <Link to="/" className={`hover:text-gray-700 ${getActiveClass("home")}`}>Home</Link>
+            <Link to="/movies/top" className={`hover:text-gray-700 ${getActiveClass("top")}`}>Top Rated</Link>
+            <Link to="/movies/popular" className={`hover:text-gray-700 ${getActiveClass("popular")}`}>Popular</Link>
+            <Link to="/movies/upcoming" className={`hover:text-gray-700 ${getActiveClass("upcoming")}`}>Upcoming</Link>
+            <Link to="/movies/now" className={`hover:text-gray-700 ${getActiveClass("now")}`}>Currently Playing</Link>
+          </div>
+
+          {/* Search Bar */}
+          <div className="hidden md:flex items-center space-x-2">
+            <input
+              type="text"
+              className="px-3 py-1 rounded-md text-black focus:ring-2 focus:ring-blue-300"
+              placeholder="Search..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
             />
-            <Button variant="outline-success" onClick={handleSearch} className="me-2">
+            <button
+              onClick={handleSearch}
+              className="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md"
+            >
               Search
-            </Button>
-            <Button variant="outline-danger" onClick={handleClear}>
+            </button>
+            <button
+              onClick={handleClear}
+              className="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-md"
+            >
               Clear
-            </Button>
-          </Form>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Search Bar */}
+        {isOpen && (
+          <div className="flex flex-col items-center p-3 bg-green-200 md:hidden">
+            <input
+              type="text"
+              className="px-3 py-1 rounded-md text-black focus:ring-2 focus:ring-blue-300"
+              placeholder="Search..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+            <div className="flex mt-2 gap-2">
+              <button
+                onClick={handleSearch}
+                className="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md"
+              >
+                Search
+              </button>
+              <button
+                onClick={handleClear}
+                className="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-md"
+              >
+                Clear
+              </button>
+            </div>
+          </div>
+        )}
+      </nav>
+    </>
   );
 }
 
