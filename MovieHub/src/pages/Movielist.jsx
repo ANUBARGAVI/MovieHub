@@ -10,7 +10,7 @@ export default function MovieList() {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
-  // Fetch movies based on the category (popular, top, upcoming, now_playing)
+  
   const fetchMovies = async (category) => {
     try {
       setLoading(true);
@@ -44,7 +44,7 @@ export default function MovieList() {
   };
 
   useEffect(() => {
-    const path = location.pathname.split("/")[2]; // Extract category from URL path
+    const path = location.pathname.split("/")[2]; 
     fetchMovies(path || "popular");
   }, [location.pathname]);
 

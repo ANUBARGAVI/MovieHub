@@ -4,7 +4,7 @@ import { useState } from "react";
 function Navscroll({ onSearch, onClear }) {
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation(); // To track active link
+  const location = useLocation(); 
 
   const handleSearch = () => {
     if (query.trim() !== "") {
@@ -24,17 +24,17 @@ function Navscroll({ onSearch, onClear }) {
     }
   };
 
-  // Set active class based on URL
+  
   const getActiveClass = (path) => {
     return location.pathname.includes(path) ? "text-yellow-500" : "text-black";
   };
 
   return (
     <>
-      {/* Navbar */}
+      
       <nav className="bg-green-100 text-white fixed top-0 w-full z-50 shadow-md">
         <div className="container mx-auto flex items-center justify-between py-3 px-4">
-          {/* Logo */}
+          
           <Link to="/" className="text-2xl font-bold text-black">
             MovieHub
           </Link>
