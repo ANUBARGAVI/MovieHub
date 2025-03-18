@@ -1,4 +1,4 @@
-🎬 Movie App
+🎬 MovieHub
 
 A simple movie listing application that fetches movies from The Movie Database (TMDB) API and allows users to save their favorite movies to a MongoDB database.
 
