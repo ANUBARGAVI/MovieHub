@@ -16,7 +16,7 @@ A simple movie listing application that fetches movies from The Movie Database (
 
 📌 Tech Stack
 
-Frontend: React.js (Next.js), Tailwind CSS
+Frontend: React.js, Tailwind CSS
 
 Backend: Node.js, Express.js, MongoDB (Mongoose)
 
