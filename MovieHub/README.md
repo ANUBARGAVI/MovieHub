@@ -1,27 +1,24 @@
-##MovieHub
+🎬 Movie App
 
-Description
+A simple movie listing application that fetches movies from The Movie Database (TMDB) API and allows users to save their favorite movies to a MongoDB database.
 
-MovieHub is a React-based web application that fetches and displays a list of movies from The Movie Database (TMDb) API. Users can explore different movie categories and filter movies by title.
+🚀 Features
 
-Features
+🎥 Fetch Movies from TMDB API (Popular, Top Rated, Upcoming, Now Playing)
 
-Fetches movies from TMDb API based on category (Popular, Top Rated, Upcoming, Now Playing).
+🔍 Search for movies
 
-Displays movies in a responsive grid layout.
+💾 Save Movies to a MongoDB database
 
-Implements a search bar to filter movies by title.
+📌 View Saved Movies (Only shows when the button is clicked)
 
-Shows a message if no movies are found.
+✅ Prevents Duplicate Saves
 
+📌 Tech Stack
 
+Frontend: React.js (Next.js), Tailwind CSS
 
-Dependencies
+Backend: Node.js, Express.js, MongoDB (Mongoose)
 
-react-router-dom for URL-based category filtering (useLocation hook).
+API: TMDB API
 
-React hooks (useEffect, useState).
-
-TMDb API for movie data.
-
-Tailwind CSS for styling.
